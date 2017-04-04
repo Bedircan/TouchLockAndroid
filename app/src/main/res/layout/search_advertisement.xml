@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:useDefaultMargins="true"
+    android:alignmentMode="alignBounds"
+    android:columnOrderPreserved="false"
+    android:columnCount="2"
+    xmlns:ls="http://schemas.android.com/apk/res-auto">
+
+    <com.farbod.labelledspinner.LabelledSpinner
+        android:id="@+id/your_labelled_spinner"
+        ls:labelText="@string/strCity"
+        ls:widgetColor="#000"
+        android:layout_marginTop="42dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"/>
+
+    <EditText
+        android:id="@+id/etCheckIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/checkInDateString"
+        android:layout_columnSpan="2"
+        android:focusable="false"/>
+
+    <EditText
+        android:id="@+id/etCheckOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:hint="@string/checkOutDateString"
+        android:focusable="false"/>
+
+    <com.farbod.labelledspinner.LabelledSpinner
+        android:id="@+id/your_labelled_spinner2"
+        ls:labelText="@string/strGuestNum"
+        ls:widgetColor="#000"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"/>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/strSearch"
+        android:textSize="30sp"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#FFF" />
+</GridLayout>
