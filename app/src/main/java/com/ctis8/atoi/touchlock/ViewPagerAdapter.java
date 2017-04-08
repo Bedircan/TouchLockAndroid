@@ -4,7 +4,6 @@ package com.ctis8.atoi.touchlock;
  * Created by Atoi on 30.03.2017.
  */
 import android.content.Context;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,7 +30,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return  SearchAdvertisement.newInstance();
             case 1:
-                return  ReservationList.newInstance();
+                return  AdvertisementList.newInstance();
             case 2:
                 return  GiveAdvertisement.newInstance();
         }
@@ -55,7 +54,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Search Advertisement";
             case 1:
-                return "Reservations";
+                return "Advertisements";
 
             case 2:
                 return "Give Advertisement";

@@ -12,7 +12,7 @@
         android:id="@+id/your_labelled_spinner"
         ls:labelText="@string/strCity"
         ls:widgetColor="#000"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="62dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_columnSpan="2"/>

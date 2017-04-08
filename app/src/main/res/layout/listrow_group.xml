@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/my_layout" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tvGroup"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:drawableRight="@drawable/house"
+        android:drawablePadding="8dip"
+        android:gravity="start"
+        android:paddingLeft="22dp"
+        android:paddingTop="8dp"
+        android:text="Test"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

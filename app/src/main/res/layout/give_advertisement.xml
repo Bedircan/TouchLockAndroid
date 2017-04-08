@@ -1,6 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ls="http://schemas.android.com/apk/res-auto">
+
+    <com.farbod.labelledspinner.LabelledSpinner
+        android:id="@+id/city_spinner"
+        ls:labelText="@string/strCity"
+        ls:widgetColor="#000"
+        android:layout_marginTop="62dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"/>
+
+    <EditText
+        android:id="@+id/etCheckIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/checkInDateString"
+        android:layout_columnSpan="2"
+        android:focusable="false"/>
+
+    <EditText
+        android:id="@+id/etCheckOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:layout_marginTop="12dp"
+        android:hint="@string/checkOutDateString"
+        android:focusable="false"/>
+
+    <com.farbod.labelledspinner.LabelledSpinner
+        android:id="@+id/guest_spinner"
+        ls:labelText="@string/strGuestNum"
+        ls:widgetColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"/>
+
+    <com.farbod.labelledspinner.LabelledSpinner
+        android:id="@+id/property_spinner"
+        ls:labelText="@string/propertyTyple"
+        ls:widgetColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"/>
+
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" >
+
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="Pet Allowed:   "
+            android:textSize="18dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@+id/view_below" >
+
+        <RadioButton
+            android:id="@+id/radioYes"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/radioNo"
+            android:layout_width="0dp"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="No" />
+    </RadioGroup>
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/descTitle"
+        android:layout_width="wrap_content"
+        android:text="Description:   "
+        android:textSize="18dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="8dp"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:maxLines="5"
+        android:lines="5"
+        android:gravity="top"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="#808080"/>
+
+    <Button
+        android:id="@+id/btnAdvertise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/strAdvertisement"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:textSize="30sp"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#FFF" />
+
+  </LinearLayout>
+</ScrollView>

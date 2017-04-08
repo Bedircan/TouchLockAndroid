@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(password, email, uid, created_at);
+                        db.addUser(password, email, created_at);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
