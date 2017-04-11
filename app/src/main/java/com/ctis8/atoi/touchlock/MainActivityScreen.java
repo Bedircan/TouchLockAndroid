@@ -1,11 +1,13 @@
 package com.ctis8.atoi.touchlock;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -49,6 +51,7 @@ public class MainActivityScreen extends AppCompatActivity {
             }
         });
         mSlidingTabLayout.setViewPager(mViewPager);
+
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_home);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_settings);
 
@@ -67,6 +70,7 @@ public class MainActivityScreen extends AppCompatActivity {
                         return true;
                     }
                 })
+                .withSliderBackgroundColor(getResources().getColor(R.color.colorPrimary))
                 .build();
     }
 }
