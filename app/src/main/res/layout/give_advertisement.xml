@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_columnSpan="2"
         android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
         android:hint="@string/checkOutDateString"
         android:focusable="false"/>
 
@@ -56,7 +57,7 @@
         android:id="@+id/tableRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" >
+        android:layout_marginTop="18dp" >
 
         <TextView
             android:id="@+id/itemTitle"
@@ -68,7 +69,7 @@
             android:layout_height="wrap_content" />
 
     <RadioGroup
-        android:id="@+id/radio_group"
+        android:id="@+id/radio_pet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -78,15 +79,17 @@
             android:id="@+id/radioYes"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="50dp"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:buttonTint="@color/colorPrimaryDark"
             android:text="Yes" />
 
         <RadioButton
             android:id="@+id/radioNo"
             android:layout_width="0dp"
             android:layout_marginLeft="12dp"
+            android:buttonTint="@color/colorPrimaryDark"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="No" />
@@ -94,12 +97,275 @@
 
     </TableRow>
 
-    <TextView
+       <TableRow
+           android:id="@+id/tableRow2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="15dp" >
+
+           <TextView
+               android:id="@+id/itemSmokeTitle"
+               android:layout_width="wrap_content"
+               android:layout_weight="1"
+               android:text="Smoking Allowed:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_smoke"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioSmokeYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="8dp"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioSmokeNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+       <TableRow
+           android:id="@+id/tableRow3"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="15dp" >
+
+           <TextView
+               android:id="@+id/itemWifi"
+               android:layout_width="wrap_content"
+               android:layout_weight="1"
+               android:text="Wifi Available:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_Wifi"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioWifiYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="37dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioWifiNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+       <TableRow
+           android:id="@+id/tableRow4"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemBasicNeeds"
+               android:layout_width="160dp"
+               android:text="Basic Needs(Towel, Shampoo):   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_Basic"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioBasicYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:text="Yes"
+                   android:buttonTint="@color/colorPrimaryDark"/>
+
+               <RadioButton
+                   android:id="@+id/radioBasicNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:text="No"
+                   android:buttonTint="@color/colorPrimaryDark"/>
+           </RadioGroup>
+
+       </TableRow>
+
+
+       <TableRow
+           android:id="@+id/tableRow5"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemTv"
+               android:layout_width="160dp"
+               android:text="Television:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_tv"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioTvYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioTvNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+       <TableRow
+           android:id="@+id/tableRow6"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemHeating"
+               android:layout_width="160dp"
+               android:text="Heating System:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_heating"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioHeatingYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioHeatingNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+
+       <TableRow
+           android:id="@+id/tableRow7"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemAC"
+               android:layout_width="160dp"
+               android:text="Air Conditioner:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_ac"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioACYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioACNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+
+       <TextView
         android:id="@+id/descTitle"
         android:layout_width="wrap_content"
         android:text="Description:   "
         android:textSize="18dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="22dp"
         android:layout_marginLeft="8dp"
         android:layout_height="wrap_content" />
 

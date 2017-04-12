@@ -103,11 +103,12 @@ public class LoginActivity extends AppCompatActivity {
                         // Create login session
                         session.setLogin(true);
 
+
                         // Now store the user in SQLite
-                        String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
-                        String password = user.getString("password");
+                        String id = user.getString("id");
+
                         String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");

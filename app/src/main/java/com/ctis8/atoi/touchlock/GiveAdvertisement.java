@@ -72,7 +72,7 @@ public class GiveAdvertisement extends Fragment {
         Button giveAdvertisementButton = (Button)view.findViewById(R.id.btnAdvertise);
 
 
-        RadioGroup rb = (RadioGroup) view.findViewById(R.id.radio_group);
+        RadioGroup rb = (RadioGroup) view.findViewById(R.id.radio_pet);
         rb.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
