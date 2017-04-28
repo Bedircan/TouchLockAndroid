@@ -10,11 +10,11 @@
     android:layout_height="match_parent"
     xmlns:ls="http://schemas.android.com/apk/res-auto">
 
-    <com.farbod.labelledspinner.LabelledSpinner
+       <com.farbod.labelledspinner.LabelledSpinner
         android:id="@+id/city_spinner"
         ls:labelText="@string/strCity"
         ls:widgetColor="#000"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_columnSpan="2"/>
@@ -359,6 +359,177 @@
 
        </TableRow>
 
+       <TableRow
+           android:id="@+id/tableRow8"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemFireDetector"
+               android:layout_width="160dp"
+               android:text="Fire Detector:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_fire"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioFireYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioFireNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+       <TableRow
+           android:id="@+id/tableRow9"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemFirstAid"
+               android:layout_width="160dp"
+               android:text="First-Aid Kit:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_firstAid"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioAidYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioAidNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+       <TableRow
+           android:id="@+id/tableRow10"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemFireExt"
+               android:layout_width="160dp"
+               android:text="Fire Extuingisher:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_fireExt"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioExtYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioExtNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
+
+       <TableRow
+           android:id="@+id/tableRow11"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp" >
+
+           <TextView
+               android:id="@+id/itemNFC"
+               android:layout_width="160dp"
+               android:text="NFC Protection:   "
+               android:textSize="18dp"
+               android:layout_marginLeft="8dp"
+               android:layout_height="wrap_content" />
+
+           <RadioGroup
+               android:id="@+id/radio_NFC"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/view_below" >
+
+               <RadioButton
+                   android:id="@+id/radioNFCYes"
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="Yes" />
+
+               <RadioButton
+                   android:id="@+id/radioNFCNo"
+                   android:layout_width="0dp"
+                   android:layout_marginLeft="12dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:buttonTint="@color/colorPrimaryDark"
+                   android:text="No" />
+           </RadioGroup>
+
+       </TableRow>
 
        <TextView
         android:id="@+id/descTitle"
@@ -380,18 +551,14 @@
         android:layout_marginLeft="8dp"
         android:background="#808080"/>
 
-    <Button
-        android:id="@+id/btnAdvertise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/strAdvertisement"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:textSize="30sp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#FFF" />
+       <Button
+           android:id="@+id/submit_button"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:layout_marginTop="22dp"
+           android:layout_marginBottom="10dp"
+           android:text="SUBMIT" />
 
   </LinearLayout>
 </ScrollView>

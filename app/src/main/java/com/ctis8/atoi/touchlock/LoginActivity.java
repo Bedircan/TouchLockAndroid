@@ -109,14 +109,6 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject user = jObj.getJSONObject("user");
                         String id = user.getString("id");
 
-                        String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
-
-                        // Inserting row in users table
-                        db.addUser(password, email, created_at);
-
-                        // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivityScreen.class);
                         startActivity(intent);

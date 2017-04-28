@@ -1,12 +1,19 @@
 package com.ctis8.atoi.touchlock;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +29,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.farbod.labelledspinner.LabelledSpinner;
+import com.tech.freak.wizardpager.model.AbstractWizardModel;
+import com.tech.freak.wizardpager.model.ModelCallbacks;
+import com.tech.freak.wizardpager.model.Page;
+import com.tech.freak.wizardpager.ui.PageFragmentCallbacks;
+import com.tech.freak.wizardpager.ui.ReviewFragment;
+import com.tech.freak.wizardpager.ui.StepPagerStrip;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -38,11 +52,27 @@ import java.util.Map;
  */
 public class GiveAdvertisement extends Fragment {
 
-    private String city, guestNumber, type, petAllowed;
+    private String city, guestNumber, type, petAllowed, smokeAllowed, basicNeed,
+        televisionAvailable, wifiAvailable, heatingAvailable, acAvailable, fireExtuingisher,
+        firstAid, fireDetector, NFCProtection;
     private EditText etCheckIn, etCheckOut, etDescription;
     final Calendar myCalendar = Calendar.getInstance();
     private ProgressDialog pDialog;
     private static final String TAG = GiveAdvertisement.class.getSimpleName();
+
+    private ViewPager mPager;
+    private MyPagerAdapter mPagerAdapter;
+
+    private boolean mEditingAfterReview;
+
+    private AbstractWizardModel mWizardModel = new SandwichWizardModel(getContext());
+
+    private boolean mConsumePageSelectedEvent;
+
+    private Button submitButton;
+
+    private List<Page> mCurrentPageSequence;
+    private StepPagerStrip mStepPagerStrip;
 
 
     @Override
@@ -58,6 +88,21 @@ public class GiveAdvertisement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.give_advertisement, container, false);
+
+        if (savedInstanceState != null) {
+            mWizardModel.load(savedInstanceState.getBundle("model"));
+        }
+
+        submitButton = (Button) view.findViewById(R.id.submit_button);
+
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                giveAdvertisement(etCheckIn.getText().toString(), etCheckOut.getText().toString(), etDescription.getText().toString());
+            }
+        });
+
         final LabelledSpinner citySpinner = (LabelledSpinner) view.findViewById(R.id.city_spinner);
         LabelledSpinner guestSpinner = (LabelledSpinner) view.findViewById(R.id.guest_spinner);
         LabelledSpinner propertySpinner = (LabelledSpinner) view.findViewById(R.id.property_spinner);
@@ -69,8 +114,6 @@ public class GiveAdvertisement extends Fragment {
         etCheckIn = (EditText) view.findViewById(R.id.etCheckIn);
         etCheckOut = (EditText) view.findViewById(R.id.etCheckOut);
         etDescription = (EditText)view.findViewById(R.id.etDescription);
-        Button giveAdvertisementButton = (Button)view.findViewById(R.id.btnAdvertise);
-
 
         RadioGroup rb = (RadioGroup) view.findViewById(R.id.radio_pet);
         rb.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -85,6 +128,157 @@ public class GiveAdvertisement extends Fragment {
                 }
             }
 
+        });
+
+        RadioGroup rg = (RadioGroup) view.findViewById(R.id.radio_smoke);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioSmokeYes:
+                        smokeAllowed = "YES";
+                        break;
+                    case R.id.radioSmokeNo:
+                        smokeAllowed = "NO";
+                }
+            }
+        });
+
+        RadioGroup rg2 = (RadioGroup)view.findViewById(R.id.radio_Wifi);
+        rg2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioWifiYes:
+                        wifiAvailable = "YES";
+                        break;
+                    case R.id.radioWifiNo:
+                        wifiAvailable = "NO";
+                        break;
+                }
+            }
+        });
+
+        RadioGroup rg3 = (RadioGroup) view.findViewById(R.id.radio_Basic);
+        rg3.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioBasicYes:
+                        basicNeed = "YES";
+                        break;
+                    case R.id.radioBasicNo:
+                        basicNeed = "NO";
+                        break;
+                }
+            }
+        });
+
+        RadioGroup rg4 = (RadioGroup) view.findViewById(R.id.radio_tv);
+        rg4.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioTvYes:
+                        televisionAvailable = "YES";
+                        break;
+                    case R.id.radioTvNo:
+                        televisionAvailable = "NO";
+                        break;
+                }
+            }
+        });
+
+        RadioGroup rg5 = (RadioGroup) view.findViewById(R.id.radio_heating);
+        rg5.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioHeatingYes:
+                        heatingAvailable = "YES";
+                        break;
+                    case R.id.radioHeatingNo:
+                        heatingAvailable = "NO";
+                        break;
+                }
+            }
+        });
+
+        RadioGroup rg6 = (RadioGroup) view.findViewById(R.id.radio_ac);
+        rg6.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioACYes:
+                        acAvailable = "YES";
+                        break;
+                    case R.id.radioACNo:
+                        acAvailable = "NO";
+                        break;
+                }
+            }
+        });
+
+        RadioGroup rg7 = (RadioGroup) view.findViewById(R.id.radio_fire);
+        rg7.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioFireYes:
+                        fireDetector = "YES";
+                        break;
+                    case R.id.radioFireNo:
+                        fireDetector = "NO";
+                        break;
+                }
+            }
+        });
+
+        RadioGroup rg8 = (RadioGroup) view.findViewById(R.id.radio_firstAid);
+        rg8.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioAidYes:
+                        firstAid = "YES";
+                        break;
+                    case R.id.radioAidNo:
+                        firstAid = "NO";
+                        break;
+                }
+            }
+        });
+
+
+        RadioGroup rg9 = (RadioGroup) view.findViewById(R.id.radio_fireExt);
+        rg9.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioExtYes:
+                        fireExtuingisher = "YES";
+                        break;
+                    case R.id.radioExtNo:
+                        fireExtuingisher = "NO";
+                        break;
+                }
+            }
+        });
+
+
+        RadioGroup rg10 = (RadioGroup) view.findViewById(R.id.radio_NFC);
+        rg10.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioNFCYes:
+                        NFCProtection = "YES";
+                        break;
+                    case R.id.radioExtNo:
+                        NFCProtection = "NO";
+                        break;
+                }
+            }
         });
 
         final DatePickerDialog.OnDateSetListener dateIn = new DatePickerDialog.OnDateSetListener() {
@@ -171,7 +365,7 @@ public class GiveAdvertisement extends Fragment {
             }
         });
 
-        giveAdvertisementButton.setOnClickListener(new View.OnClickListener() {
+      /*  giveAdvertisementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String checkInDateString = etCheckIn.getText().toString();
@@ -194,7 +388,40 @@ public class GiveAdvertisement extends Fragment {
                 }
 
             }
-        });
+        });*/
+
+        /*
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mPager.getCurrentItem() == mCurrentPageSequence.size()) {
+                    DialogFragment dg = new DialogFragment() {
+                        @Override
+                        public Dialog onCreateDialog(Bundle savedInstanceState) {
+                            return new AlertDialog.Builder(getActivity())
+                                    .setMessage("Confirm")
+                                    .setPositiveButton(
+                                            "Submit",
+                                            null)
+                                    .setNegativeButton(android.R.string.cancel,
+                                            null).create();
+                        }
+                    };
+                    dg.show(getFragmentManager(), "place_order_dialog");
+                } else {
+                    if (mEditingAfterReview) {
+                        mPager.setCurrentItem(mPagerAdapter.getCount() - 1);
+                    } else {
+                        mPager.setCurrentItem(mPager.getCurrentItem() + 1);
+                    }
+                }
+            }
+        });*/
+
+
+        //onPageTreeChanged();
+        //updateBottomBar();
+
         return view;
     }
 
@@ -241,14 +468,23 @@ public class GiveAdvertisement extends Fragment {
 
             @Override
             protected Map<String, String> getParams() {
-                // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("city", city);
                 params.put("checkindate", checkInDate);
                 params.put("checkoutdate", checkoutDate);
                 params.put("numGuest", guestNumber);
                 params.put("type", type);
-                params.put("isPetAllowed", petAllowed);
+                params.put("s_smoke", smokeAllowed);
+                params.put("s_pet", petAllowed);
+                params.put("s_wifi", wifiAvailable);
+                params.put("s_basic", basicNeed);
+                params.put("s_tv", televisionAvailable);
+                params.put("s_heating", heatingAvailable);
+                params.put("s_cooling", acAvailable);
+                params.put("s_Firedetector", fireDetector);
+                params.put("s_aidkit", firstAid);
+                params.put("s_extinguisher", fireExtuingisher);
+                params.put("s_nfc", NFCProtection);
                 params.put("description", description);
                 return params;
             }
@@ -290,5 +526,60 @@ public class GiveAdvertisement extends Fragment {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    public class MyPagerAdapter extends FragmentStatePagerAdapter {
+        private int mCutOffPage;
+        private Fragment mPrimaryItem;
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            if (i >= mCurrentPageSequence.size()) {
+                return new ReviewFragment();
+            }
+
+            return mCurrentPageSequence.get(i).createFragment();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            // TODO: be smarter about this
+            if (object == mPrimaryItem) {
+                // Re-use the current fragment (its position never changes)
+                return POSITION_UNCHANGED;
+            }
+
+            return POSITION_NONE;
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position,
+                                   Object object) {
+            super.setPrimaryItem(container, position, object);
+            mPrimaryItem = (Fragment) object;
+        }
+
+        @Override
+        public int getCount() {
+            if (mCurrentPageSequence == null) {
+                return 0;
+            }
+            return Math.min(mCutOffPage + 1, mCurrentPageSequence.size() + 1);
+        }
+
+        public void setCutOffPage(int cutOffPage) {
+            if (cutOffPage < 0) {
+                cutOffPage = Integer.MAX_VALUE;
+            }
+            mCutOffPage = cutOffPage;
+        }
+
+        public int getCutOffPage() {
+            return mCutOffPage;
+        }
     }
 }
