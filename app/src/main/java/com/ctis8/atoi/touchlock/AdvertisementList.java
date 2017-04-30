@@ -141,8 +141,8 @@ public class AdvertisementList extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("password", password);
+                //params.put("email", email);
+                //params.put("password", password);
 
                 return params;
             }
@@ -163,8 +163,8 @@ public class AdvertisementList extends Fragment {
         TextView tvCity = (TextView) myDialog.findViewById(R.id.tvCity);
         tvCity.setText(advertisement.getCity());
 
-        TextView tvPet = (TextView) myDialog.findViewById(R.id.tvPet);
-        tvPet.setText(advertisement.isPetAllowed()+"");
+        //TextView tvPet = (TextView) myDialog.findViewById(R.id.tvPet);
+        //tvPet.setText(advertisement.isPetAllowed()+"");
 
         TextView tvType = (TextView) myDialog.findViewById(R.id.tvType);
         tvType.setText(advertisement.getType());

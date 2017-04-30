@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/checkInDateString"
         android:layout_columnSpan="2"
+        android:textStyle="bold"
         android:focusable="false"/>
 
     <EditText
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_columnSpan="2"
         android:hint="@string/checkOutDateString"
+        android:textStyle="bold"
         android:focusable="false"/>
 
     <com.farbod.labelledspinner.LabelledSpinner
@@ -49,6 +51,6 @@
         android:layout_marginTop="20dp"
         android:text="@string/strSearch"
         android:textSize="30sp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#005b65"
         android:textColor="#FFF" />
 </GridLayout>

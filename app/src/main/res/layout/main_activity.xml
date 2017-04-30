@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ctis8.atoi.touchlock.MainActivityScreen"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:backgroundTint="#90FFFFFF"
+    android:backgroundTintMode="src_over">
 
     <include
         android:id="@+id/tool_bar"
@@ -24,6 +26,6 @@
         android:layout_below="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark" />
+        android:background="#005b65" />
 
 </RelativeLayout>

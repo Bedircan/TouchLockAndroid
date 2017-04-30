@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/checkInDateString"
         android:layout_columnSpan="2"
+        android:textStyle="bold"
         android:focusable="false"/>
 
     <EditText
@@ -34,6 +35,7 @@
         android:layout_columnSpan="2"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="8dp"
+        android:textStyle="bold"
         android:hint="@string/checkOutDateString"
         android:focusable="false"/>
 
@@ -64,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:text="Pet Allowed:   "
+            android:textStyle="bold"
             android:textSize="18dp"
             android:layout_marginLeft="8dp"
             android:layout_height="wrap_content" />
@@ -108,6 +111,7 @@
                android:layout_width="wrap_content"
                android:layout_weight="1"
                android:text="Smoking Allowed:   "
+               android:textStyle="bold"
                android:textSize="18dp"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
@@ -152,6 +156,7 @@
                android:layout_width="wrap_content"
                android:layout_weight="1"
                android:text="Wifi Available:   "
+               android:textStyle="bold"
                android:textSize="18dp"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
@@ -195,6 +200,7 @@
                android:id="@+id/itemBasicNeeds"
                android:layout_width="160dp"
                android:text="Basic Needs(Towel, Shampoo):   "
+               android:textStyle="bold"
                android:textSize="18dp"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
@@ -239,6 +245,7 @@
                android:id="@+id/itemTv"
                android:layout_width="160dp"
                android:text="Television:   "
+               android:textStyle="bold"
                android:textSize="18dp"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
@@ -282,6 +289,7 @@
                android:id="@+id/itemHeating"
                android:layout_width="160dp"
                android:text="Heating System:   "
+               android:textStyle="bold"
                android:textSize="18dp"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
@@ -327,6 +335,7 @@
                android:layout_width="160dp"
                android:text="Air Conditioner:   "
                android:textSize="18dp"
+               android:textStyle="bold"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
 
@@ -370,6 +379,7 @@
                android:layout_width="160dp"
                android:text="Fire Detector:   "
                android:textSize="18dp"
+               android:textStyle="bold"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
 
@@ -412,6 +422,7 @@
                android:id="@+id/itemFirstAid"
                android:layout_width="160dp"
                android:text="First-Aid Kit:   "
+               android:textStyle="bold"
                android:textSize="18dp"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
@@ -455,6 +466,7 @@
                android:id="@+id/itemFireExt"
                android:layout_width="160dp"
                android:text="Fire Extuingisher:   "
+               android:textStyle="bold"
                android:textSize="18dp"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
@@ -499,6 +511,7 @@
                android:layout_width="160dp"
                android:text="NFC Protection:   "
                android:textSize="18dp"
+               android:textStyle="bold"
                android:layout_marginLeft="8dp"
                android:layout_height="wrap_content" />
 
@@ -536,6 +549,7 @@
         android:layout_width="wrap_content"
         android:text="Description:   "
         android:textSize="18dp"
+           android:textStyle="bold"
         android:layout_marginTop="22dp"
         android:layout_marginLeft="8dp"
         android:layout_height="wrap_content" />
@@ -558,7 +572,8 @@
            android:layout_weight="1"
            android:layout_marginTop="22dp"
            android:layout_marginBottom="10dp"
+           android:background="#005b65"
+           android:textColor="#FFF"
            android:text="SUBMIT" />
-
   </LinearLayout>
 </ScrollView>
