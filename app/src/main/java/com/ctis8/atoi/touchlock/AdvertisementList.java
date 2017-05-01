@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,10 +29,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,28 +50,8 @@ public class AdvertisementList extends Fragment {
     private ListView list;
     private static final String TAG = AdvertisementList.class.getSimpleName();
     private ProgressDialog pDialog;
-
-    String[] itemname ={
-            "Ankara",
-            "İstanbul",
-            "Adana",
-            "Antalya",
-            "İzmir",
-            "Denizli",
-            "Bursa",
-            "Eskisehir"
-    };
-
-    Integer[] imgid={
-            R.drawable.house,
-            R.drawable.house,
-            R.drawable.house,
-            R.drawable.house,
-            R.drawable.house,
-            R.drawable.house,
-            R.drawable.house,
-            R.drawable.house    ,
-    };
+    private ImageView houseIcon;
+    private ArrayList<Advertisement> advertisementList = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,14 +69,13 @@ public class AdvertisementList extends Fragment {
         pDialog = new ProgressDialog(getContext());
         pDialog.setCancelable(false);
         getAdvertisementList();
-        CustomListAdapter adapter=new CustomListAdapter(getActivity(), itemname, imgid);
-        final Advertisement advertisement = new Advertisement("Ankara", true, "private room", 5, "Güzel ev", "13/04/2017", "18/04/2017");
+        CustomListAdapter adapter=new CustomListAdapter(getActivity(), advertisementList);
         list = (ListView)view.findViewById(R.id.list);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                messageDialog(advertisement);
+                //
             }
         });
         return view;
@@ -103,26 +92,41 @@ public class AdvertisementList extends Fragment {
 
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
 
-                    // Check for error node in json
-                    if (!error) {
-                        JSONObject user = jObj.getJSONObject("user");
-                        String id = user.getString("id");
+                        JSONObject house = jObj.getJSONObject("house");
+                        String title = house.getString("title");
 
-                        String email = user.getString("email");
-                        String created_at = user
-                                .getString("created_at");
-                    } else {
-                        // Error in login. Get the error message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
+                        String imageUrl = house.getString("image");
+
+
+                        java.net.URL url = null;
+                        try {
+                            url = new java.net.URL(imageUrl);
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+                        HttpURLConnection connection = (HttpURLConnection) url
+                                .openConnection();
+                        connection.setDoInput(true);
+                        connection.connect();
+                        InputStream input = connection.getInputStream();
+                        Bitmap houseBitmap = BitmapFactory.decodeStream(input);
+
+                        Bitmap resizedHouseBitmap = Bitmap.createScaledBitmap(
+                                houseBitmap, 30, 30, false);
+
+                        String address = house
+                                .getString("address");
+
+                        String description = house.getString("description");
+                        Advertisement advertisement = new Advertisement(title, resizedHouseBitmap, address, description);
+                        refreshListView(advertisement);
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -141,8 +145,10 @@ public class AdvertisementList extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                //params.put("email", email);
-                //params.put("password", password);
+                SharedPreferences prefs = getContext().getSharedPreferences("MyApp", Context.MODE_PRIVATE);
+                String id = prefs.getString("username", "UNKNOWN");
+
+                params.put("id", id);
 
                 return params;
             }
@@ -192,4 +198,10 @@ public class AdvertisementList extends Fragment {
             pDialog.dismiss();
     }
 
+    public void refreshListView(Advertisement advertisement)
+    {
+        advertisementList.add(advertisement);
+        CustomListAdapter adapter=new CustomListAdapter(getActivity(), advertisementList);
+        list.setAdapter(adapter);
+    }
 }

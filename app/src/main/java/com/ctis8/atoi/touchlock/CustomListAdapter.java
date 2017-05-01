@@ -9,21 +9,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Atoi on 11.04.2017.
  */
 public class CustomListAdapter extends ArrayAdapter<String> {
 
     private Activity context;
-    private String[] itemname;
-    private Integer[] imgid;
+    private ArrayList<Advertisement> advertisementList;
 
-    public CustomListAdapter(Activity context, String[] itemname, Integer[] imgid) {
-        super(context, R.layout.list_row, itemname);
+    public CustomListAdapter(Activity context, ArrayList<Advertisement> advertisementList) {
+        super(context, R.layout.list_row);
 
-        this.context=context;
-        this.itemname=itemname;
-        this.imgid=imgid;
+        this.context = context;
+        this.advertisementList = advertisementList;
     }
 
     public View getView(int position,View view,ViewGroup parent) {
@@ -33,8 +33,8 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         TextView txtTitle = (TextView) rowView.findViewById(R.id.ItemName);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 
-        txtTitle.setText(itemname[position]);
-        imageView.setImageResource(imgid[position]);
+        txtTitle.setText(advertisementList.get(position).getTitle());
+        imageView.setImageBitmap(advertisementList.get(position).getIcon());
 
         return rowView;
     };

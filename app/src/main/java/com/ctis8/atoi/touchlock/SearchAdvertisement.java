@@ -1,20 +1,38 @@
 package com.ctis8.atoi.touchlock;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.farbod.labelledspinner.LabelledSpinner;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by Atoi on 30.03.2017.
@@ -23,6 +41,10 @@ public class SearchAdvertisement extends Fragment {
 
     private EditText etCheckIn, etCheckOut;
     final Calendar myCalendar = Calendar.getInstance();
+    ArrayList<String> cityNames = new ArrayList<>();
+    String tag_string_req = "cityList";
+    private Spinner citySpinner;
+    private Button searchButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,12 +59,19 @@ public class SearchAdvertisement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_advertisement, container, false);
-        LabelledSpinner yourSpinner = (LabelledSpinner) view.findViewById(R.id.your_labelled_spinner);
+        citySpinner = (Spinner) view.findViewById(R.id.your_labelled_spinner);
         LabelledSpinner outSpinner = (LabelledSpinner) view.findViewById(R.id.your_labelled_spinner2);
         etCheckIn = (EditText) view.findViewById(R.id.etCheckIn);
         etCheckOut = (EditText) view.findViewById(R.id.etCheckOut);
-        yourSpinner.setItemsArray(R.array.city_array);
+        getCityList();
         outSpinner.setItemsArray(R.array.numGuest_array);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+            public void onClick(View v) {
+                searchAdvertisement(String.valueOf(citySpinner.getSelectedItem()));
+            }
+        });
 
         final DatePickerDialog.OnDateSetListener dateIn = new DatePickerDialog.OnDateSetListener() {
 
@@ -93,10 +122,90 @@ public class SearchAdvertisement extends Fragment {
         });
 
         return view;
-
-
-
     }
+
+    private void searchAdvertisement(final String cityName) {
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_ADVERTISELIST, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    // User successfully stored in MySQL
+                    // Now store the user in sqlite
+                    JSONObject result = jObj.getJSONObject("searchResult");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cityName", cityName);
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void getCityList() {
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_ADVERTISE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                        JSONArray cities = jObj.getJSONArray("cities");
+
+                    for (int i = 0; i < cities.length(); i++) {
+                        JSONObject jsonObject = cities.getJSONObject(i);
+                        String city = jsonObject.optString("city").toString();
+                        cityNames.add(city);
+                    }
+
+                    citySpinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, cityNames));
+
+                    } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 
     private void updateCheckIn() {
 

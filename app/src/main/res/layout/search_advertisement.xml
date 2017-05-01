@@ -8,10 +8,8 @@
     android:columnCount="2"
     xmlns:ls="http://schemas.android.com/apk/res-auto">
 
-    <com.farbod.labelledspinner.LabelledSpinner
+    <Spinner
         android:id="@+id/your_labelled_spinner"
-        ls:labelText="@string/strCity"
-        ls:widgetColor="#000"
         android:layout_marginTop="62dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

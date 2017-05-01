@@ -2,6 +2,7 @@ package com.ctis8.atoi.touchlock;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -108,6 +109,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         JSONObject user = jObj.getJSONObject("user");
                         String id = user.getString("id");
+
+                        SharedPreferences prefs = getSharedPreferences("id", MODE_PRIVATE);
+                        prefs.edit().putString("username", id).commit();
 
                         Intent intent = new Intent(LoginActivity.this,
                                 MainActivityScreen.class);
