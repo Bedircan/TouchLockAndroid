@@ -432,7 +432,7 @@ public class GiveAdvertisement extends Fragment {
         showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ADVERTISE, new Response.Listener<String>() {
+                AppConfig.URL_LOGIN, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {

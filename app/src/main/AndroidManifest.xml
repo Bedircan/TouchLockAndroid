@@ -28,6 +28,10 @@
             android:name=".MainActivityScreen"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AdvertisementDetailActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

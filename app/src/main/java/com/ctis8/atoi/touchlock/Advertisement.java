@@ -2,10 +2,12 @@ package com.ctis8.atoi.touchlock;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Atoi on 11.04.2017.
  */
-public class Advertisement {
+public class Advertisement implements Serializable {
     private String city, checkInDate, checkOutDate, type
             , description, address, title;
 

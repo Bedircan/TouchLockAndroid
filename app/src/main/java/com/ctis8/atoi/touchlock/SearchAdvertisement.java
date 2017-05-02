@@ -43,7 +43,7 @@ public class SearchAdvertisement extends Fragment {
     final Calendar myCalendar = Calendar.getInstance();
     ArrayList<String> cityNames = new ArrayList<>();
     String tag_string_req = "cityList";
-    private Spinner citySpinner;
+    private LabelledSpinner citySpinner;
     private Button searchButton;
 
     @Override
@@ -59,19 +59,13 @@ public class SearchAdvertisement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.search_advertisement, container, false);
-        citySpinner = (Spinner) view.findViewById(R.id.your_labelled_spinner);
+        citySpinner = (LabelledSpinner) view.findViewById(R.id.city_spinner);
         LabelledSpinner outSpinner = (LabelledSpinner) view.findViewById(R.id.your_labelled_spinner2);
         etCheckIn = (EditText) view.findViewById(R.id.etCheckIn);
         etCheckOut = (EditText) view.findViewById(R.id.etCheckOut);
-        getCityList();
+        //getCityList();
+        citySpinner.setItemsArray(R.array.city_array);
         outSpinner.setItemsArray(R.array.numGuest_array);
-
-        searchButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-            public void onClick(View v) {
-                searchAdvertisement(String.valueOf(citySpinner.getSelectedItem()));
-            }
-        });
 
         final DatePickerDialog.OnDateSetListener dateIn = new DatePickerDialog.OnDateSetListener() {
 
@@ -122,63 +116,31 @@ public class SearchAdvertisement extends Fragment {
         });
 
         return view;
-    }
 
-    private void searchAdvertisement(final String cityName) {
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ADVERTISELIST, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    // User successfully stored in MySQL
-                    // Now store the user in sqlite
-                    JSONObject result = jObj.getJSONObject("searchResult");
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting params to register url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("cityName", cityName);
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     private void getCityList() {
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ADVERTISE, new Response.Listener<String>() {
+                AppConfig.URL_LOGIN
+                , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jObj = new JSONObject(response);
-
+                        // User successfully stored in MySQL
+                        // Now store the user in sqlite
                         JSONArray cities = jObj.getJSONArray("cities");
 
+                        // Inserting row in users table
                     for (int i = 0; i < cities.length(); i++) {
                         JSONObject jsonObject = cities.getJSONObject(i);
                         String city = jsonObject.optString("city").toString();
                         cityNames.add(city);
                     }
 
-                    citySpinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, cityNames));
+                    //citySpinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, cityNames));
 
                     } catch (JSONException e) {
                     e.printStackTrace();
